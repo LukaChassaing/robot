@@ -1,0 +1,27 @@
+canvas {
+    position: absolute;
+    left: 0;
+}
+
+#fluxWebcam {
+    width: 720px;
+    height: 405px;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+}
+
+.imageDeReference {
+    width: 720px;
+    height: 405px;
+    display: none;
+}
+
+canvas:first-of-type {
+    display: none;
+}
+
+.canvas-dis-none{
+    display:none;
+}

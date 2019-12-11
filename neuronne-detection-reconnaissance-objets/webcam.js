@@ -1,0 +1,41 @@
+class Webcam {
+    constructor(url, element) {
+        this.url = url;
+        this.JqueryImgElement = element;
+    }
+
+    toDataURL(src, callback, outputFormat) {
+        var img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function () {
+            var canvas = document.createElement('CANVAS');
+            var ctx = canvas.getContext('2d');
+            var dataURL;
+            canvas.height = this.naturalHeight;
+            canvas.width = this.naturalWidth;
+            ctx.drawImage(this, 0, 0);
+            dataURL = canvas.toDataURL(outputFormat);
+            callback(dataURL);
+        };
+        img.src = src;
+        if (img.complete || img.complete === undefined) {
+            img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+            img.src = src;
+        }
+    }
+
+    createImageLayer() {
+        var instance = this
+        var url = instance.url
+        return new Promise(function (resolve) {
+            instance.toDataURL(
+                url, 
+                function (dataUrl) {
+                    instance.JqueryImgElement.attr('src', dataUrl)
+                }
+            )
+            resolve(true)
+        })
+    }
+
+}
